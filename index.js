@@ -44,7 +44,6 @@ app.post('/addperson', (req, res) => {
   })
   var status = 'created';
   var getUsersQuery = 'SELECT * FROM person';
-
   pool.query(getUsersQuery, (error, result) => {
     if (error)
       res.end(error)
