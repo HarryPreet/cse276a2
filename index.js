@@ -31,7 +31,6 @@ app.get('/database', (req, res) => {
     res.render('pages/db', results)
   })
 })
- 
 
 app.post('/addperson', (req, res) => {
   var pname = req.body.name;
@@ -53,6 +52,7 @@ app.post('/addperson', (req, res) => {
     var results = { 'rows': result.rows }
     res.render('pages/db', results)
   })
+  console.log(status)
 }) 
 
 app.post('/deleteperson', (req, res) => {
@@ -63,13 +63,7 @@ app.post('/deleteperson', (req, res) => {
       res.end(error)  
   })
   var status = 'deleted';
-  var getUsersQuery = 'SELECT * FROM person';
-  pool.query(getUsersQuery, (error, result) => {
-    if (error)
-      res.end(error)
-    var results = { 'rows': result.rows }
-    res.render('pages/db', results)
-  })
+  console.log(status)
 }) 
 
 app.post('/editperson', (req, res) => {
@@ -85,11 +79,5 @@ app.post('/editperson', (req, res) => {
   })
 
   var status = 'updated';
-  var getUsersQuery = 'SELECT * FROM person';
-  pool.query(getUsersQuery, (error, result) => {
-    if (error)
-      res.end(error)
-    var results = { 'rows': result.rows }
-    res.render('pages/db', results)
-  })
+  console.log(status)
 }) 
