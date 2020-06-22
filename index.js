@@ -2,9 +2,55 @@ const express = require('express')
 const path = require('path')
 const PORT = process.env.PORT || 5000
 
-express()
-  .use(express.static(path.join(__dirname, 'public')))
-  .set('views', path.join(__dirname, 'views'))
-  .set('view engine', 'ejs')
-  .get('/', (req, res) => res.render('pages/index'))
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`))
+const { Pool } = require('pg');
+const { response } = require('express');
+
+var pool;
+
+pool = new Pool({
+  connectionString: 'postgres://postgres:&UJM,ki8@localhost/users'
+})
+
+var app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')))
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'ejs')
+app.get('/', (req, res) => res.render('pages/index'))
+app.listen(PORT, () => console.log(`Listening on ${PORT}`))
+
+
+app.get('/database', (req, res) => {
+  var getUsersQuery = 'SELECT * FROM person';
+  pool.query(getUsersQuery, (error, result) => {
+    if (error)
+      res.end(error)
+    var results = { 'rows': result.rows }
+    res.render('pages/db', results)
+  })
+})
+
+app.post('/addperson', (req, res) => {
+  var pname = req.body.name;
+  var size = req.body.size;
+  var height = req.body.height;
+  var type = req.body.type;
+  var insertUsersQuery = `INSERT INTO person values(${pname},${size},${height},${type})`;
+  pool.query(insertUsersQuery, (error, result) => {
+    if (error)
+      res.end(error)
+    
+  })
+  var status = 'created';
+  var getUsersQuery = 'SELECT * FROM person';
+
+  pool.query(getUsersQuery, (error, result) => {
+    if (error)
+      res.end(error)
+    var results = { 'rows': result.rows }
+    res.render('pages/db', results)
+  })
+
+  
+}) 

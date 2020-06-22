@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang = "en" dir ="ltr">
+    <head>
+        <script type="text/javascript" src="./script.js"></script>
+        <meta charset="utf-8">
+        <title>My Database</title>
+        <link rel="stylesheet" href="./stylesheets/style.css">
+    </head>
+    <body>
+        <div class ="div1">
+            <h1>
+                Person
+            </h1>
+            <p>Database to store information about people </p>
+            <nav class="nav1">
+                <a href = "http://localhost:5000/mydatabase.html" ><button class = "navbutton">Home</button></a> |
+                <a href = "https://www.github.com"><button class = "navbutton">Github</button></a> |  
+                <button class ="navbutton">About</button></a>
+            </nav>
+        </div>
+        <div>
+            <h2>Add a Person </h2>
+            <form class="submitform" action ="/addperson" method="post">
+                <input type = "text" name ="name" value="" placeholder = "Person Name" ><br>
+                <input type = "number" name ="size" value="" placeholder = "Size" ><br>
+                <input type = "number" name ="height" value="" placeholder = "Height"><br>
+                <input type = "text" name ="type" value="" placeholder = "Type"><br>
+                <input type ="submit" name = "sub" value="ADD"><br>
+            </form>
+
+        </div>
+
+        </body>
+        </html>
