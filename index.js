@@ -36,7 +36,8 @@ app.post('/addperson', (req, res) => {
   var size = req.body.size;
   var height = req.body.height;
   var type = req.body.type;
-  var insertUsersQuery = `INSERT INTO person values(${pname},${size},${height},${type})`;
+  var insertUsersQuery = `INSERT INTO person values('${pname}',${size},${height},'${type}')`;
+ 
   pool.query(insertUsersQuery, (error, result) => {
     if (error)
       res.end(error)
@@ -50,6 +51,42 @@ app.post('/addperson', (req, res) => {
     var results = { 'rows': result.rows }
     res.render('pages/db', results)
   })
+}) 
 
-  
+app.post('/deleteperson', (req, res) => {
+  var pname = req.body.name;
+  var insertUsersQuery = `delete from person where person.name= '${pname}'`;
+  pool.query(insertUsersQuery, (error, result) => {
+    if (error)
+      res.end(error)  
+  })
+  var status = 'deleted';
+  var getUsersQuery = 'SELECT * FROM person';
+  pool.query(getUsersQuery, (error, result) => {
+    if (error)
+      res.end(error)
+    var results = { 'rows': result.rows }
+    res.render('pages/db', results)
+  })
+}) 
+
+app.post('/editperson', (req, res) => {
+  var pname = req.body.name;
+  var size = req.body.size;
+  var height = req.body.height;
+  var type = req.body.type;
+  var insertUsersQuery = `update person set size =${size}, height = ${height}, type ='${type}' where name= '${pname}'`;
+  console.log(insertUsersQuery);
+  pool.query(insertUsersQuery, (error, result) => {
+    if (error)
+      res.end(error)  
+  })
+  var status = 'updated';
+  var getUsersQuery = 'SELECT * FROM person';
+  pool.query(getUsersQuery, (error, result) => {
+    if (error)
+      res.end(error)
+    var results = { 'rows': result.rows }
+    res.render('pages/db', results)
+  })
 }) 
