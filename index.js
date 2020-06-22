@@ -9,7 +9,7 @@ const { count } = require('console');
 var pool;
 
 pool = new Pool({
-  connectionString: 'postgres://postgres:&UJM,ki8@localhost/users'
+  connectionString: procces.env.DATABASE_URL
 })
 
 var app = express();
@@ -31,7 +31,7 @@ app.get('/database', (req, res) => {
     res.render('pages/db', results)
   })
 })
-
+ 
 
 app.post('/addperson', (req, res) => {
   var pname = req.body.name;
