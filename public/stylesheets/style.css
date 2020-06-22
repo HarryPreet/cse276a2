@@ -52,3 +52,9 @@ a{
 table,th,td{
     border: 1px solid rgb(160, 42, 130);
 }
+
+.ellipse{
+    fill:yellow;
+    stroke:purple;
+    stroke-width:2 ;
+}

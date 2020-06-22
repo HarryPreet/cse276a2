@@ -4,6 +4,7 @@ const PORT = process.env.PORT || 5000
 
 const { Pool } = require('pg');
 const { response } = require('express');
+const { count } = require('console');
 
 var pool;
 
@@ -30,6 +31,7 @@ app.get('/database', (req, res) => {
     res.render('pages/db', results)
   })
 })
+
 
 app.post('/addperson', (req, res) => {
   var pname = req.body.name;
@@ -81,6 +83,7 @@ app.post('/editperson', (req, res) => {
     if (error)
       res.end(error)  
   })
+
   var status = 'updated';
   var getUsersQuery = 'SELECT * FROM person';
   pool.query(getUsersQuery, (error, result) => {
