@@ -9,7 +9,7 @@ const { count } = require('console');
 var pool;
 
 pool = new Pool({
-  connectionString: procces.env.DATABASE_URL
+  connectionString: process.env.DATABASE_URL
 })
 
 var app = express();
